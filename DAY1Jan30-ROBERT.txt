@@ -373,8 +373,8 @@ end
 
 !How to Static Route windows Server:
 cmd
-route  add   10.0.0.0   mask   255.0.0.0    10._.1.4
-route  add  200.0.0.0   mask  255.255.255.0   10._.1.4
+route  add   10.0.0.0   mask   255.0.0.0    10.91.1.4
+route  add  200.0.0.0   mask  255.255.255.0   10.91.1.4
 
 ********************************************
 
