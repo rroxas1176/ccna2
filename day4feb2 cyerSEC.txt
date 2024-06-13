@@ -223,7 +223,7 @@ Permit tcp any host www.web8.com eq 443 log
 Permit tcp any host www.web9.com eq 22 log 
 Permit tcp any host www.web9.com eq 53 log  
 Interface Gi 3 
-no ip access-group PROWEBAPP1 in
+ ip access-group PROWEBAPP1 in
  do sh ip access-list PROWEBAPP1
 
 
@@ -243,9 +243,98 @@ Permit tcp any host www.web9.com eq 23 log
 Permit tcp any host www.web9.com eq 80 log  
 Permit tcp any host www.web9.com eq 22 log
 Interface Gi 3 
- ip access-group PROWEBAPP3 in
+ no ip access-group PROWEBAPP3 in
  do sh ip access-list PROWEBAPP3
 end
+
+Ex4. Create a firewall Policy Named: ProtectApp4 to open
+www.web8.com has PING DNS HTTPS open
+www.web9 has EVERYTHING open
+
+conf t
+no ip access-list extended PROWEBAPP3
+ip access-list extended PROWEBAPP3
+Permit icmp any host www.web8.com 
+Permit tcp any host www.web8.com eq 53 
+Permit tcp any host www.web8.com eq 80 
+
+Permit ip any host www.web9.com  
+Interface Gi 3 
+ no ip access-group PROWEBAPP3 in
+ do sh ip access-list PROWEBAPP3
+end
+
+Ex5. Create a firewall Policy Named: LASTFWP 
+www.web8.com has PING CHARGEN, FINGER, HTTP open
+www.web9 has SSH, TELNET DAYTIME, DNS, HTTPS open
+
+conf t
+no ip access-list extended LASTFWP
+ip access-list extended LASTFWP
+Permit icmp any host www.web8.com 
+Permit tcp any host www.web8.com eq 19 
+Permit tcp any host www.web8.com eq 79 
+Permit tcp any host www.web8.com eq 80 
+
+Permit tcp any host www.web9.com eq 22 
+Permit tcp any host www.web9.com eq 23 
+Permit tcp any host www.web9.com eq 13 
+Permit tcp any host www.web9.com eq 53 
+Permit tcp any host www.web9.com eq 443
+Interface Gi 3 
+ ip access-group LASTFWP in
+ do sh ip access-list LASTF
+end
+
+Task 8: Configuring Cisco network Services
+Network Time Protocol or NTP
+is a layer 7 protocol using UDP 123
+CVonfigure your VPN to use time.google.com server in USA
+
+conf t
+ntp server 216.239.35.8
+end
+show ntp associations
+
+Task 9: NAT Address Translation Service
+NAT, Proxy, Hotspot, Tethering = PENGE INTERNET
+Give Internet to your entire building using Cisco
+
+Step1 Define inside and outside
+2. Create access list to permit accsss of indide
+3. create nat tool with overload
+@vpnOconf t
+
+conf t
+int gi 1
+ip nat OUTSIDE
+int gi 2
+ip nat INSIDE
+int gi 3
+ip nat INSIDE
+no access-list 7
+access-list 7 permit 192.168.102.0 0.0.0.255
+access-list 7 permit 192.168.103.0 0.0.0.255
+ip nat inside source list 7 interface Gi 1 overload
+ip nat inside source static 192.168.102.69 192.168.108.69
+ip nat inside source static 192.168.103.88 192.168.108.88
+end
+
+Task10: DO YOU WANT TO BE REPLACED BY A.I.
+How to be untoucheable employee
+
+If you want hayup above 6digits sweldo / untoucheable you need HAYUP / SIX DIGITS SWELDO HABITS
+
+
+
+
+
+
+
+
+
+
+
 
 
 
