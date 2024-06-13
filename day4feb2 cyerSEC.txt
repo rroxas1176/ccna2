@@ -50,6 +50,8 @@ DENY 104.21.0.0 0.0.255.255
 DENY 68.235.0.0 0.0.255.255
 DENY 104.17.0.0 0.0.255.255
 DENY 88.208.0.0 0.0.255.255
+DENY 172.67.0.0 0.0.255.255
+DENY 208.122.0.0 0.0.255.255
 Permit Any
 Int Gi 0/0/1
  ip access-group NOPORN1 in
@@ -57,17 +59,19 @@ Int Gi 0/0/1
 
 TASK2: USE STANDARD ACCESS-LIST TO BLOCK OTHER CONTRIES/CLASSMATE:
 config t
-NO ip access-list standard NOCOL1
-ip access-list standard NOCOL1
-DENY 10.11.0.0 0.0.255.255
-DENY 10.21.0.0 0.0.255.255
-DENY 10.31.0.0 0.0.255.255
-DENY 10.41.0.0 0.0.255.255
-DENY 10.51.0.0 0.0.255.255
-DENY 10.61.0.0 0.0.255.255
+NO ip access-list standard KAMI1
+ip access-list standard KAMI1
+DENY 10.12.0.0 0.0.255.255
+DENY 10.22.0.0 0.0.255.255
+DENY 10.32.0.0 0.0.255.255
+DENY 10.42.0.0 0.0.255.255
+DENY 10.52.0.0 0.0.255.255
+DENY 10.62.0.0 0.0.255.255
+DENY 10.72.0.0 0.0.255.255
+DENY 10.82.0.0 0.0.255.255
 Permit Any
 Int Gi 0/0/1
- ip access-group NOCOL1 in
+ ip access-group KAMI1 in
  end
 
 TASK3: When you become a Security Analyst:
