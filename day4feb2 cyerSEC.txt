@@ -223,8 +223,29 @@ Permit tcp any host www.web8.com eq 443 log
 Permit tcp any host www.web9.com eq 22 log 
 Permit tcp any host www.web9.com eq 53 log  
 Interface Gi 3 
- ip access-group PROWEBAPP1 in
+no ip access-group PROWEBAPP1 in
  do sh ip access-list PROWEBAPP1
+
+
+Ex3. Create a firewall Policy Named: ProtectApp1 to open
+www.web8.com has DNS SSH HTTP TELNET open
+www.web9 has TELNET HTTPS SSH open
+
+conf t
+no ip access-list extended PROWEBAPP3
+ip access-list extended PROWEBAPP3
+Permit tcp any host www.web8.com eq 53 log
+Permit tcp any host www.web8.com eq 22 log
+Permit tcp any host www.web8.com eq 80 log
+Permit tcp any host www.web8.com eq 23 log
+
+Permit tcp any host www.web9.com eq 23 log 
+Permit tcp any host www.web9.com eq 80 log  
+Permit tcp any host www.web9.com eq 22 log
+Interface Gi 3 
+ ip access-group PROWEBAPP3 in
+ do sh ip access-list PROWEBAPP3
+end
 
 
 
