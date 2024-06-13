@@ -174,24 +174,28 @@ the Basics for Firewalls.
 before: nmap -v 10.m.100.8
 @Cucm:
 config t
-int fa 0/0
- ip add 10.m.100.9 255.255.255.0 Secondary
+int gi 3
+  ip add 192.168.103.8 255.255.255.0 
+  ip add 192.168.103.9 255.255.255.0 Secondary
+no shut
 service finger
 service tcp-small-servers
 service udp-small-servers
 ip dns server
 ip http server
 ip http secure-server
-!Make Ping EASY
-ip host pc 10.m.1.10
-ip host cm 10.m.100.8
-ip host cm2 10.m.100.9
-ip host p1 10.m.100.101
-ip host p2 10.m.100.102
-ip host c6 10.m.50.6
-ip host c8 10.m.50.8
-ip host sw 10.m.1.4
-ip host ed 10.m.m.1
+!Make Ping EASY 
+ip host www.web8.com 192.168.103.8
+ip host www.web9.com 192.168.103.9
+ip host pc 10.91.1.10
+ip host cm 10.91.100.8
+ip host cm2 10.91.100.9
+ip host p1 10.91.100.101
+ip host p2 10.91.100.102
+ip host c6 10.91.50.6
+ip host c8 10.91.50.8
+ip host sw 10.91.1.4
+ip host ed 10.91.91.1
 
 TASK7: Enter the World of BlueTeam: Protect vs Redteam: Attack, 
 BlueTeam: UTM: unified Threat management:
@@ -205,7 +209,22 @@ Top 5 UTM: 1.FortinetFortigate:
            2. Checkpoint
            3.4 Cisco
 
+CYBER SECURITY Protecting your Website
+Create a firewall Policy Named: ProtectApp1 to open
+www.web8.com has http and https as open
+www.web9 has ssh and dns open
+formula: Protocol, hacker, victim, port
 
+conf t
+no ip access-list extended PROWEBAPP1
+ip access-list extended PROWEBAPP1
+Permit tcp any host www.web8.com eq 80 log
+Permit tcp any host www.web8.com eq 443 log
+Permit tcp any host www.web9.com eq 22 log 
+Permit tcp any host www.web9.com eq 53 log  
+Interface Gi 3 
+ ip access-group PROWEBAPP1 in
+ do sh ip access-list PROWEBAPP1
 
 
 
